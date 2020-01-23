@@ -1,10 +1,12 @@
 package ru.otus.hw02;
 
+import java.security.InvalidParameterException;
 import java.util.*;
 
 public class DIYArrayList<T> implements List<T> {
-    protected T[] internalArray;
     private final int DEFAULT_CAPACITY = 1;
+
+    protected T[] internalArray;
     protected int listSize = 0;
 
     public DIYArrayList(int capacity) {
@@ -39,7 +41,7 @@ public class DIYArrayList<T> implements List<T> {
 
     @Override
     public Iterator<T> iterator() {
-        throw new UnsupportedOperationException();
+        return new DIYArrayListIterator();
     }
 
     @Override
@@ -57,7 +59,8 @@ public class DIYArrayList<T> implements List<T> {
         if (listSize == internalArray.length) {
             incInternalArray();
         }
-        internalArray[listSize++] = t;
+        internalArray[listSize] = t;
+        listSize++;
 
         return true;
     }
@@ -74,6 +77,8 @@ public class DIYArrayList<T> implements List<T> {
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
+        incInternalArrayForAddingOtherCollection(c.size());
+
         for (T el : c) {
             add(el);
         }
@@ -86,6 +91,7 @@ public class DIYArrayList<T> implements List<T> {
         if (index > size() || index < 0) {
             throw new IndexOutOfBoundsException();
         }
+        incInternalArrayForAddingOtherCollection(c.size());
 
         T[] shiftedSubArray = Arrays.copyOfRange(internalArray, index, size());
         listSize = index;
@@ -153,7 +159,7 @@ public class DIYArrayList<T> implements List<T> {
 
     @Override
     public ListIterator<T> listIterator() {
-        throw new UnsupportedOperationException();
+        return new DIYArrayListListIterator();
     }
 
     @Override
@@ -171,12 +177,32 @@ public class DIYArrayList<T> implements List<T> {
         Arrays.sort(internalArray, 0, size(), c);
     }
 
-
     /**
      *
      */
     protected void incInternalArray() {
         internalArray = Arrays.copyOf(internalArray, internalArray.length * 2);
+    }
+
+    /**
+     * @param newLength
+     */
+    protected void incInternalArray(int newLength) {
+        if (newLength <= internalArray.length) {
+            throw new InvalidParameterException("Bad new size");
+        }
+        internalArray = Arrays.copyOf(internalArray, newLength);
+    }
+
+    /**
+     * @param otherCollectionSize
+     */
+    protected void incInternalArrayForAddingOtherCollection(int otherCollectionSize)
+    {
+        int emptyItemsCount = internalArray.length - size();
+        if (otherCollectionSize > emptyItemsCount) {
+            incInternalArray(otherCollectionSize - emptyItemsCount);
+        }
     }
 
     /**
@@ -187,4 +213,68 @@ public class DIYArrayList<T> implements List<T> {
             throw new IndexOutOfBoundsException();
         }
     }
+
+
+    private class DIYArrayListIterator implements Iterator<T> {
+        int cursor = 0;
+        int lastRet = -1;
+
+        @Override
+        public boolean hasNext() {
+            return cursor != DIYArrayList.this.size();
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public T next() {
+            int i = cursor;
+            Object[] iteratorArray = DIYArrayList.this.internalArray;
+            cursor = i + 1;
+            return (T)iteratorArray[lastRet = i];
+        }
+    }
+
+    private class DIYArrayListListIterator extends DIYArrayListIterator
+            implements ListIterator<T> {
+
+        @Override
+        public boolean hasPrevious() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public T previous() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public int nextIndex() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public int previousIndex() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void set(T e) {
+            try {
+                DIYArrayList.this.set(lastRet, e);
+            } catch (IndexOutOfBoundsException ex) {
+                throw new ConcurrentModificationException();
+            }
+        }
+
+        @Override
+        public void add(T e) {
+            throw new UnsupportedOperationException();
+        }
+    }
+
 }
