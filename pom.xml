@@ -8,6 +8,8 @@
 
     <modules>
         <module>hw01-maven</module>
+        <module>hw02-arrayList</module>
+        <module>hw03-gc</module>
     </modules>
 
     <name>otus-java-2019-12</name>
