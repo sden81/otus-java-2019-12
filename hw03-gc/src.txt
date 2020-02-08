@@ -1,0 +1,42 @@
+-Xms128m
+-Xmx128m
+-Xlog:gc=debug:file=./logs/gc-%p-%t.log:tags,uptime,time,level:filecount=5,filesize=10m
+
+
+-XX:+UseG1GC
+GCname: G1 Young Generation | Count: 1029 | Duration: 3035 msGCname: G1 Old Generation | Count: 308 | Duration: 17386 ms
+Loop count: 498 | Uptime: 164 sec
+
+GCname: G1 Young Generation | Count: 1029 | Duration: 2919 msGCname: G1 Old Generation | Count: 288 | Duration: 16672 ms
+Loop count: 498 | Uptime: 169 sec
+
+GCname: G1 Young Generation | Count: 1028 | Duration: 2993 msGCname: G1 Old Generation | Count: 292 | Duration: 16809 ms
+Loop count: 498 | Uptime: 177 sec
+
+GCname: G1 Young Generation | Count: 1049 | Duration: 3003 msGCname: G1 Old Generation | Count: 290 | Duration: 17052 ms
+Loop count: 500 | Uptime: 171 sec
+
+GCname: G1 Young Generation | Count: 1048 | Duration: 2933 msGCname: G1 Old Generation | Count: 306 | Duration: 18054 ms
+Loop count: 500 | Uptime: 167 sec
+
+
+-XX:+UseSerialGC
+GCname: Copy | Count: 232 | Duration: 1643 msGCname: MarkSweepCompact | Count: 786 | Duration: 59992 ms
+Loop count: 492 | Uptime: 166 sec
+
+GCname: Copy | Count: 231 | Duration: 1598 msGCname: MarkSweepCompact | Count: 795 | Duration: 60917 ms
+Loop count: 492 | Uptime: 167 sec
+
+GCname: Copy | Count: 232 | Duration: 1630 msGCname: MarkSweepCompact | Count: 806 | Duration: 62880 ms
+Loop count: 492 | Uptime: 167 sec
+
+
+-XX:+UseParallelGC
+GCname: PS MarkSweep | Count: 524 | Duration: 34435 msGCname: PS Scavenge | Count: 203 | Duration: 725 ms
+Loop count: 496 | Uptime: 145 sec
+
+GCname: PS MarkSweep | Count: 501 | Duration: 34622 msGCname: PS Scavenge | Count: 203 | Duration: 735 ms
+Loop count: 496 | Uptime: 145 sec
+
+GCname: PS MarkSweep | Count: 543 | Duration: 33818 msGCname: PS Scavenge | Count: 203 | Duration: 715 ms
+Loop count: 496 | Uptime: 143 sec
