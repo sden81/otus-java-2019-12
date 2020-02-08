@@ -8,6 +8,7 @@
 
     <modules>
         <module>hw01-maven</module>
+        <module>hw04-logger</module>
     </modules>
 
     <name>otus-java-2019-12</name>
