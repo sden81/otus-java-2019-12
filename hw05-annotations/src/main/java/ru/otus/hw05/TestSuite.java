@@ -17,21 +17,12 @@ public class TestSuite {
     }
 
     @Test
-    public boolean successTest() {
+    public void successTest() {
         System.out.println("Execute TestSuite.testSuccess");
-
-        return true;
     }
 
     @Test
-    public boolean failedTest() {
-        System.out.println("Execute TestSuite.failedTest");
-
-        return false;
-    }
-
-    @Test
-    public boolean errorTest() {
+    public void errorTest() {
         System.out.println("Execute TestSuite.errorTest");
         throw new AssertionError("Error in test");
     }

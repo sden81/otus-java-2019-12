@@ -22,15 +22,15 @@ public class TestFramework {
 
     protected void fillMethodLists() {
         for (Method method : testClass.getMethods()) {
-            if (method.getAnnotation(Before.class) instanceof Before) {
+            if (method.getAnnotation(Before.class) != null) {
                 beforeMethods.add(method);
                 continue;
             }
-            if (method.getAnnotation(Test.class) instanceof Test) {
+            if (method.getAnnotation(Test.class) != null) {
                 testMethods.add(method);
                 continue;
             }
-            if (method.getAnnotation(After.class) instanceof After) {
+            if (method.getAnnotation(After.class) != null) {
                 endMethods.add(method);
             }
         }
@@ -42,7 +42,6 @@ public class TestFramework {
         }
 
         int faultTests = 0;
-        int errorTests = 0;
 
         for (Method testMethod : testMethods) {
             Object testSuiteInstance = testClass.getDeclaredConstructor().newInstance();
@@ -53,19 +52,15 @@ public class TestFramework {
 
             if (!runBeforeAfter(beforeMethods, testSuiteInstance)){
                 faultTests++;
+                runBeforeAfter(endMethods, testSuiteInstance);
                 continue;
             }
 
             //run test
             try {
-                Object testResult = testMethod.invoke(testSuiteInstance);
-                if (testResult instanceof Boolean) {
-                    if (!(boolean) testResult) {
-                        faultTests++;
-                    }
-                }
+                testMethod.invoke(testSuiteInstance);
             } catch (Exception e) {
-                errorTests++;
+                faultTests++;
                 System.out.println("");
                 System.out.printf("Exception %s in method %s with description %s%s",
                         e.getClass().toString(),
@@ -81,10 +76,10 @@ public class TestFramework {
         }
         System.out.println("");
         System.out.println("-------------------------");
-        System.out.printf("Success tests: %d Fault tests: %d Error tests: %d",
-                testMethods.size() - faultTests - errorTests,
+        System.out.printf("%nSuccess tests: %d %nFault tests: %d %nTotal tests: %d",
+                testMethods.size() - faultTests,
                 faultTests,
-                errorTests
+                testMethods.size()
         );
     }
 
