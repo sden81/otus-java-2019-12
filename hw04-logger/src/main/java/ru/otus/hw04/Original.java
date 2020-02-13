@@ -6,7 +6,7 @@ public class Original implements OriginalInterface {
     }
 
     @Log
-    public void hello(int i) {
+    public void hello(int i, String str) {
         System.out.println("Hello");
     }
 }
