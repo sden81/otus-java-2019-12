@@ -12,6 +12,7 @@
         <module>hw03-gc</module>
         <module>hw04-logger</module>
         <module>hw05-annotations</module>
+        <module>hw06-ATM</module>
         <module>hw07-departmentATM</module>
     </modules>
 

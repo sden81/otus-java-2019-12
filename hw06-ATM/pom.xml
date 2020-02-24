@@ -8,12 +8,6 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <dependencies>
-        <dependency>
-            <groupId>ru.otus</groupId>
-            <artifactId>hw06-ATM</artifactId>
-        </dependency>
-    </dependencies>
 
     <dependencyManagement>
         <dependencies>
@@ -25,7 +19,8 @@
         </dependencies>
     </dependencyManagement>
 
-    <artifactId>hw07-departmentATM</artifactId>
+    <artifactId>hw06-ATM</artifactId>
+
     <packaging>jar</packaging>
 
     <build>
@@ -41,7 +36,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>ru.otus.hw02.Main</mainClass>
+                            <mainClass>ru.otus.hw06.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -57,5 +52,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
