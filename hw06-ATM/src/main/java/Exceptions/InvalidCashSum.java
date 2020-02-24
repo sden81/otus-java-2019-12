@@ -1,6 +1,6 @@
 package Exceptions;
 
-public class InvalidCashSum extends RuntimeException {
+public class InvalidCashSum extends ATMException {
     public InvalidCashSum(String message) {
         super(message);
     }

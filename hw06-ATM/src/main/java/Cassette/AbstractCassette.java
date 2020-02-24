@@ -9,7 +9,7 @@ import Exceptions.InvalidCurrency;
 import java.util.*;
 
 public class AbstractCassette implements Cassette {
-    protected Map<Integer, BanknoteCell> banknoteCells;
+    protected Map<Integer, BanknoteCellImpl> banknoteCells;
 
     private final Currency currency;
     private int cellsCount;
@@ -22,7 +22,7 @@ public class AbstractCassette implements Cassette {
     }
 
     public AbstractCassette(Currency currency, int cellsCount) {
-        banknoteCells = new TreeMap<Integer, BanknoteCell>(new BanknoteCellsComparator());
+        banknoteCells = new TreeMap<Integer, BanknoteCellImpl>(new BanknoteCellsComparator());
         this.currency = currency;
         this.cellsCount = cellsCount;
         this.availableCells = cellsCount;
@@ -33,7 +33,7 @@ public class AbstractCassette implements Cassette {
      */
     public int getBalance() {
         int balance = 0;
-        for (Map.Entry<Integer, BanknoteCell> banknoteCell : banknoteCells.entrySet()) {
+        for (Map.Entry<Integer, BanknoteCellImpl> banknoteCell : banknoteCells.entrySet()) {
             balance += banknoteCell.getValue().banknote.getNominal() * banknoteCell.getValue().getBanknoteCount();
         }
 
@@ -104,7 +104,7 @@ public class AbstractCassette implements Cassette {
         }
         banknoteCells.put(
                 banknotesDto.banknote.getNominal(),
-                new BanknoteCell(banknotesDto.banknote, banknotesCount)
+                new BanknoteCellImpl(banknotesDto.banknote, banknotesCount)
         );
     }
 
@@ -128,7 +128,7 @@ public class AbstractCassette implements Cassette {
         int wholePartNeedBanknotes;
         double fractionalPartNeedBanknotes;
 
-        for (Map.Entry<Integer, BanknoteCell> banknoteCell : banknoteCells.entrySet()) {
+        for (Map.Entry<Integer, BanknoteCellImpl> banknoteCell : banknoteCells.entrySet()) {
             if (banknoteCell.getValue().getBanknoteCount() == 0) {
                 continue;
             }
