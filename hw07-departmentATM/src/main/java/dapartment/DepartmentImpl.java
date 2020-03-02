@@ -10,14 +10,14 @@ public class DepartmentImpl implements Department {
 
     @Override
     public String getTotalBalance() {
-        var totalBalance = atmSet.stream().mapToInt(atm ->atm.getBalance()).sum();
+        var totalBalance = atmSet.stream().mapToInt(ATM::getBalance).sum();
 
         return String.valueOf(totalBalance);
     }
 
     @Override
     public void resetAllATM() {
-        atmSet.stream().forEach(atm ->resetAllATM());
+        atmSet.forEach(atm ->resetAllATM());
     }
 
     @Override
