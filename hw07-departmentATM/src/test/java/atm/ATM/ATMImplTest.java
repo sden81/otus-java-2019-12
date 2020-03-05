@@ -1,5 +1,6 @@
 package atm.ATM;
 
+import atm.ATM.Command.GetBalanceCommand;
 import atm.Banknotes.Banknote100Rub;
 import atm.Banknotes.Banknote500Rub;
 import atm.Cassette.RubCassette;
@@ -21,7 +22,13 @@ public class ATMImplTest {
         listBanknotesDtos.add(new BanknotesDto(new Banknote100Rub(), 3));
         listBanknotesDtos.add(new BanknotesDto(new Banknote500Rub(), 4));
 
-        atm = new ATMImpl.Builder().setCassette(RubCassette.createCassette(listBanknotesDtos)).setAddress("NN").setSerialNumber("123").saveInitState().build();
+        atm = new ATMImpl.Builder()
+                .setCassette(RubCassette.createCassette(listBanknotesDtos))
+                .setAddress("NN")
+                .setSerialNumber("123")
+                .saveInitState()
+                .setGetBalanceCommand(GetBalanceCommand.class)
+                .build();
     }
 
     @Test

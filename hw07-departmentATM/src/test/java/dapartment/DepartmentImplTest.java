@@ -3,6 +3,7 @@ package dapartment;
 
 import atm.ATM.ATM;
 import atm.ATM.ATMImpl;
+import atm.ATM.Command.GetBalanceCommand;
 import atm.Banknotes.Banknote100Rub;
 import atm.Banknotes.Banknote500Rub;
 import atm.Cassette.RubCassette;
@@ -27,9 +28,9 @@ public class DepartmentImplTest {
         listBanknotesDtos.add(new BanknotesDto(new Banknote100Rub(), 3));
         listBanknotesDtos.add(new BanknotesDto(new Banknote500Rub(), 4));
 
-        ATM atm1 = new ATMImpl.Builder().setCassette(RubCassette.createCassette(listBanknotesDtos)).setAddress("atm1 address").setSerialNumber("s/n atm1").saveInitState().build();
-        ATM atm2 = new ATMImpl.Builder().setCassette(RubCassette.createCassette(listBanknotesDtos)).setAddress("atm2 address").setSerialNumber("s/n atm2").saveInitState().build();
-        ATM atm3 = new ATMImpl.Builder().setCassette(RubCassette.createCassette(listBanknotesDtos)).setAddress("atm3 address").setSerialNumber("s/n atm3").saveInitState().build();
+        ATM atm1 = new ATMImpl.Builder().setCassette(RubCassette.createCassette(listBanknotesDtos)).setAddress("atm1 address").setSerialNumber("s/n atm1").saveInitState().setGetBalanceCommand(GetBalanceCommand.class).build();
+        ATM atm2 = new ATMImpl.Builder().setCassette(RubCassette.createCassette(listBanknotesDtos)).setAddress("atm2 address").setSerialNumber("s/n atm2").saveInitState().setGetBalanceCommand(GetBalanceCommand.class).build();
+        ATM atm3 = new ATMImpl.Builder().setCassette(RubCassette.createCassette(listBanknotesDtos)).setAddress("atm3 address").setSerialNumber("s/n atm3").saveInitState().setGetBalanceCommand(GetBalanceCommand.class).build();
         department.registerATM(atm1);
         department.registerATM(atm2);
         department.registerATM(atm3);

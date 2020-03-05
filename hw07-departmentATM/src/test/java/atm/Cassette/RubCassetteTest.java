@@ -12,7 +12,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class RubCassetteTest {
-    protected AbstractCassette rubCassette;
+    protected BaseCassette rubCassette;
 
     @Before
     public void initCassette() {

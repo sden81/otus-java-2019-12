@@ -22,10 +22,9 @@ public class DepartmentImpl implements Department {
 
     @Override
     public void removeATM(ATM atm) {
-        if (!atmSet.contains(atm)) {
+        if (!atmSet.remove(atm)) {
             throw new RuntimeException("ATM not added");
         }
-        atmSet.remove(atm);
     }
 
     @Override

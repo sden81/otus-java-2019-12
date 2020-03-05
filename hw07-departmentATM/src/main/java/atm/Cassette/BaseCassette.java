@@ -8,7 +8,7 @@ import atm.Exceptions.InvalidCurrency;
 
 import java.util.*;
 
-public class AbstractCassette implements Cassette, Cloneable {
+public class BaseCassette implements Cassette, Cloneable {
     protected Map<Integer, BanknoteCellImpl> banknoteCells;
     protected static final int CELLS_COUNT = 5;
     private final Currency currency;
@@ -20,7 +20,7 @@ public class AbstractCassette implements Cassette, Cloneable {
         }
     }
 
-    public AbstractCassette(Currency currency, int cellsCount) {
+    public BaseCassette(Currency currency, int cellsCount) {
         banknoteCells = new TreeMap<Integer, BanknoteCellImpl>(new BanknoteCellsComparator());
         this.currency = currency;
         this.availableCells = cellsCount;
@@ -181,7 +181,7 @@ public class AbstractCassette implements Cassette, Cloneable {
     }
 
     public static Cassette createCassette(Currency currency, List<BanknotesDto> listBanknotesDto, int cellsCount){
-        var cassette = new AbstractCassette(currency, cellsCount);
+        var cassette = new BaseCassette(currency, cellsCount);
         for (BanknotesDto banknotesDto : listBanknotesDto){
             cassette.addBanknoteCell(banknotesDto);
         }
@@ -190,7 +190,7 @@ public class AbstractCassette implements Cassette, Cloneable {
     }
 
     public Cassette clone() {
-        return AbstractCassette.createCassette(
+        return BaseCassette.createCassette(
                 this.currency,
                 this.convertToBanknoteDtoList(),
                 this.getAvailableCells()

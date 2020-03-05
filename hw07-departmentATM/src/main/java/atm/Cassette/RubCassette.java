@@ -6,17 +6,17 @@ import java.util.List;
 
 import static atm.Cassette.Currency.RUB;
 
-public class RubCassette extends AbstractCassette {
+public class RubCassette extends BaseCassette {
     public RubCassette(int cellsCount) {
         super(RUB, cellsCount);
     }
 
     public static Cassette createCassette(List<BanknotesDto> listBanknotesDto, int cellsCount) {
-        return AbstractCassette.createCassette(RUB, listBanknotesDto, cellsCount);
+        return BaseCassette.createCassette(RUB, listBanknotesDto, cellsCount);
     }
 
     public static Cassette createCassette(List<BanknotesDto> listBanknotesDto) {
-        return AbstractCassette.createCassette(RUB, listBanknotesDto, AbstractCassette.CELLS_COUNT);
+        return BaseCassette.createCassette(RUB, listBanknotesDto, BaseCassette.CELLS_COUNT);
     }
 
     @Override
