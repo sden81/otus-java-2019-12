@@ -32,7 +32,7 @@ public class ATMImpl implements ATM{
      * @return
      */
     public Integer getBalance() {
-        return atmCassette.getBalance();
+        return Integer.parseInt(getBalanceCommand.execute());
     }
 
     /**
@@ -152,6 +152,7 @@ public class ATMImpl implements ATM{
         }
 
         atmCassette = initState.getInitCassette();
+        getBalanceCommand.setCassette(atmCassette);
         address = initState.getInitAddress();
         vendor = initState.getInitVendor();
         serialNumber = initState.getInitVendor();

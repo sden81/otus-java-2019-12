@@ -6,6 +6,10 @@ public class GetBalanceCommand implements Command{
     private Cassette cassette;
 
     public GetBalanceCommand(Cassette cassette) {
+        setCassette(cassette);
+    }
+
+    public void setCassette(Cassette cassette) {
         this.cassette = cassette;
     }
 

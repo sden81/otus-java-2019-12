@@ -17,7 +17,7 @@ public class DepartmentImpl implements Department {
 
     @Override
     public void resetAllATM() {
-        atmSet.forEach(atm ->resetAllATM());
+        atmSet.forEach(atm -> resetAllATM());
     }
 
     @Override
