@@ -28,9 +28,9 @@ public class DepartmentImplTest {
         listBanknotesDtos.add(new BanknotesDto(new Banknote100Rub(), 3));
         listBanknotesDtos.add(new BanknotesDto(new Banknote500Rub(), 4));
 
-        ATM atm1 = new ATMImpl.Builder().setCassette(RubCassette.createCassette(listBanknotesDtos)).setAddress("atm1 address").setSerialNumber("s/n atm1").saveInitState().setGetBalanceCommand(GetBalanceCommand.class).build();
-        ATM atm2 = new ATMImpl.Builder().setCassette(RubCassette.createCassette(listBanknotesDtos)).setAddress("atm2 address").setSerialNumber("s/n atm2").saveInitState().setGetBalanceCommand(GetBalanceCommand.class).build();
-        ATM atm3 = new ATMImpl.Builder().setCassette(RubCassette.createCassette(listBanknotesDtos)).setAddress("atm3 address").setSerialNumber("s/n atm3").saveInitState().setGetBalanceCommand(GetBalanceCommand.class).build();
+        ATM atm1 = new ATMImpl.Builder().setCassette(RubCassette.createCassette(listBanknotesDtos)).setAddress("atm1 address").setSerialNumber("s/n atm1").saveInitState().setGetBalanceCommand(new GetBalanceCommand()).build();
+        ATM atm2 = new ATMImpl.Builder().setCassette(RubCassette.createCassette(listBanknotesDtos)).setAddress("atm2 address").setSerialNumber("s/n atm2").saveInitState().setGetBalanceCommand(new GetBalanceCommand()).build();
+        ATM atm3 = new ATMImpl.Builder().setCassette(RubCassette.createCassette(listBanknotesDtos)).setAddress("atm3 address").setSerialNumber("s/n atm3").saveInitState().setGetBalanceCommand(new GetBalanceCommand()).build();
         department.registerATM(atm1);
         department.registerATM(atm2);
         department.registerATM(atm3);

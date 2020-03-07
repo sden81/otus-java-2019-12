@@ -1,11 +1,10 @@
 package atm.ATM;
 
-import atm.ATM.Command.GetBalanceCommand;
+import atm.ATM.Command.Command;
 import atm.Cassette.Cassette;
 import atm.Dto.BanknotesDto;
 import atm.Exceptions.ATMException;
 
-import java.lang.reflect.Constructor;
 import java.util.List;
 
 public class ATMImpl implements ATM{
@@ -13,7 +12,7 @@ public class ATMImpl implements ATM{
     protected String address;
     protected String vendor;
     protected String serialNumber;
-    protected GetBalanceCommand getBalanceCommand;
+    protected Command getBalanceCommand;
     protected Momento initState;
 
     public ATMImpl(
@@ -32,7 +31,7 @@ public class ATMImpl implements ATM{
      * @return
      */
     public Integer getBalance() {
-        return Integer.parseInt(getBalanceCommand.execute());
+        return Integer.parseInt(execute(getBalanceCommand));
     }
 
     /**
@@ -70,12 +69,16 @@ public class ATMImpl implements ATM{
         this.vendor = vendor;
     }
 
-    public GetBalanceCommand getGetBalanceCommand() {
-        return getBalanceCommand;
+    public void setGetBalanceCommand(Command getBalanceCommand) {
+        this.getBalanceCommand = getBalanceCommand;
     }
 
-    public void setGetBalanceCommand(GetBalanceCommand getBalanceCommand) {
-        this.getBalanceCommand = getBalanceCommand;
+    public String execute(Command cmd) {
+        return cmd.execute(this);
+    }
+
+    public Cassette getAtmCassette() {
+        return atmCassette;
     }
 
     public static class Builder {
@@ -84,7 +87,7 @@ public class ATMImpl implements ATM{
         private String vendor;
         private String serialNumber;
         private Boolean isSaveInitState = false;
-        private Constructor<atm.ATM.Command.GetBalanceCommand> getBalanceCommandConstructor;
+        private Command getBalanceCommand;
 
         public Builder setCassette(Cassette atmCassette) {
             this.atmCassette = atmCassette;
@@ -116,23 +119,15 @@ public class ATMImpl implements ATM{
             return this;
         }
 
-        public Builder setGetBalanceCommand(Class<atm.ATM.Command.GetBalanceCommand> getBalanceCommandClass){
-            try {
-                getBalanceCommandConstructor = getBalanceCommandClass.getConstructor(Cassette.class);
-            } catch (NoSuchMethodException e){
-                throw new RuntimeException();
-            }
+        public Builder setGetBalanceCommand(Command getBalanceCommand){
+           this.getBalanceCommand = getBalanceCommand;
 
             return this;
         }
 
         public ATM build() {
             var atm = new ATMImpl(atmCassette, serialNumber, vendor, address);
-            try {
-                atm.setGetBalanceCommand(getBalanceCommandConstructor.newInstance(atmCassette));
-            } catch (Exception e){
-                throw new RuntimeException("Can't create getBlanceCommand");
-            }
+            atm.setGetBalanceCommand(this.getBalanceCommand);
 
             if (this.isSaveInitState){
                 atm.saveInitState();
@@ -152,7 +147,6 @@ public class ATMImpl implements ATM{
         }
 
         atmCassette = initState.getInitCassette();
-        getBalanceCommand.setCassette(atmCassette);
         address = initState.getInitAddress();
         vendor = initState.getInitVendor();
         serialNumber = initState.getInitVendor();

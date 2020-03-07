@@ -1,5 +1,6 @@
 package atm.ATM;
 
+import atm.Cassette.Cassette;
 import atm.Dto.BanknotesDto;
 
 import java.util.List;
@@ -12,6 +13,7 @@ public interface ATM {
     String getAddress();
     String getSerialNumber();
     String getVendor();
+    Cassette getAtmCassette();
 
     void saveInitState();
     void restoreInitState();

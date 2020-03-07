@@ -27,7 +27,7 @@ public class ATMImplTest {
                 .setAddress("NN")
                 .setSerialNumber("123")
                 .saveInitState()
-                .setGetBalanceCommand(GetBalanceCommand.class)
+                .setGetBalanceCommand(new GetBalanceCommand())
                 .build();
     }
 
