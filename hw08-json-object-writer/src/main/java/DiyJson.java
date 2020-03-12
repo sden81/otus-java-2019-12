@@ -24,7 +24,7 @@ public class DiyJson {
         Class<?> clazz = object.getClass();
         for (Field field : clazz.getDeclaredFields()) {
             fieldResult = processField(field, object);
-            if (fieldResult != "") {
+            if (!fieldResult.equals("")) {
                 jsonObject.append(processField(field, object));
                 jsonObject.append(",");
             }
