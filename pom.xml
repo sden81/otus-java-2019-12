@@ -13,6 +13,7 @@
         <module>hw04-logger</module>
         <module>hw05-annotations</module>
         <module>hw06-ATM</module>
+        <module>hw07-departmentATM</module>
         <module>hw08-json-object-writer</module>
     </modules>
 
