@@ -1,7 +1,13 @@
+package diyJson;
+
+import helpers.ObjectHelper;
+
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 
 public class DiyJson {
 
@@ -10,7 +16,7 @@ public class DiyJson {
             return "null";
         }
 
-        return processObject(src);
+        return processItem(src);
     }
 
     protected String processObject(Object object) {
@@ -76,43 +82,35 @@ public class DiyJson {
             return "[]";
         }
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("[");
-        String renderResult;
+        var renderResult = new ArrayList<String>();
         for (int i = 0; i < Array.getLength(array); i++) {
-            renderResult = processArrayItem(Array.get(array, i));
-            if (!renderResult.equals("")) {
-                sb.append(renderResult).append(",");
+            String result = processItem(Array.get(array, i));
+            if (!result.equals("")) {
+                renderResult.add(result);
             }
         }
-        sb.deleteCharAt(sb.length() - 1);
-        sb.append("]");
 
-        return sb.toString();
+        var sb = new StringBuilder();
+        sb.append("[").append(String.join(",",renderResult)).append("]");
+
+        return String.valueOf(sb);
     }
 
     protected String processCollection(Collection collection) {
-        if (collection.size() == 0){
+        collection.stream().filter(Objects::nonNull);
+        if (collection.isEmpty()){
             return "[]";
         }
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("[");
-        String renderResult;
-        for (Object item : collection) {
-            renderResult = processArrayItem(item);
-            if (!renderResult.equals("")) {
-                sb.append(renderResult).append(",");
-            }
-        }
+        var renderResult = new ArrayList<String>();
+        collection.stream().forEach(item->renderResult.add(processItem(item)));
+        var sb = new StringBuilder();
+        sb.append("[").append(String.join(",",renderResult)).append("]");
 
-        sb.deleteCharAt(sb.length() - 1);
-        sb.append("]");
-
-        return sb.toString();
+        return String.valueOf(sb);
     }
 
-    protected String processArrayItem(Object itemObject) {
+    protected String processItem(Object itemObject) {
         String typeName = itemObject.getClass().getName();
 
         if (ObjectHelper.isString(typeName) || ObjectHelper.isChar(typeName)) {
@@ -121,6 +119,14 @@ public class DiyJson {
 
         if (ObjectHelper.isInteger(typeName) || ObjectHelper.isFloat(typeName) || ObjectHelper.isBoolean(typeName)) {
             return itemObject.toString();
+        }
+
+        if(ObjectHelper.isArray(itemObject.getClass())){
+            return processArray(itemObject);
+        }
+
+        if(ObjectHelper.isCollection(itemObject.getClass())){
+            return processCollection((Collection) itemObject);
         }
 
         return processObject(itemObject);

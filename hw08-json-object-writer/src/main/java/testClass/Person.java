@@ -1,3 +1,5 @@
+package testClass;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -24,7 +26,7 @@ public class Person {
     public static Person createPerson() {
         var person = new Person("Test person", 21);
 
-        person.setAnotherPerson(new Person("Another Person", 22));
+        person.setAnotherPerson(new Person("Another testClass.Person", 22));
 
         person.setFavoriteNumbers(new int[]{1, 2, 3});
         person.setFriends(new Person[]{
