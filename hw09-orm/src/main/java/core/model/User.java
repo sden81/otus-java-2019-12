@@ -1,10 +1,13 @@
 package core.model;
 
+import jdbc.queryGenerator.Id;
+
 /**
  * @author sergey
  * created on 03.02.19.
  */
 public class User {
+  @Id
   private final long id;
   private final String name;
 
