@@ -1,6 +1,8 @@
 package core.service;
 
-public class DbServiceException extends RuntimeException {
+import core.Hw10CommonException;
+
+public class DbServiceException extends Hw10CommonException {
   public DbServiceException(Exception e) {
     super(e);
   }

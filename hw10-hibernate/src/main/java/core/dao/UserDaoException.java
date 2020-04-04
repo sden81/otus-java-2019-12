@@ -1,6 +1,8 @@
 package core.dao;
 
-public class UserDaoException extends RuntimeException {
+import core.Hw10CommonException;
+
+public class UserDaoException extends Hw10CommonException {
   public UserDaoException(Exception ex) {
     super(ex);
   }

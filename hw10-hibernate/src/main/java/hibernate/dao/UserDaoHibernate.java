@@ -24,6 +24,7 @@ public class UserDaoHibernate implements UserDao {
     public Optional<User> findById(long id) {
         DatabaseSessionHibernate currentSession = sessionManager.getCurrentSession();
         try {
+            var transaction = currentSession.getHibernateSession().getTransaction();
             return Optional.ofNullable(currentSession.getHibernateSession().find(User.class, id));
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
