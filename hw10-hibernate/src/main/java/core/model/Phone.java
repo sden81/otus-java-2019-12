@@ -13,7 +13,7 @@ public class Phone {
     @Column(name = "number")
     private String number;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     private User person;
 
     public Phone() {
@@ -33,6 +33,10 @@ public class Phone {
         return id;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public String getNumber() {
         return number;
     }
@@ -41,5 +45,11 @@ public class Phone {
         this.number = number;
     }
 
+    public User getPerson() {
+        return person;
+    }
 
+    public void setPerson(User person) {
+        this.person = person;
+    }
 }

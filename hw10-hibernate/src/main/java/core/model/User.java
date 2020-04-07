@@ -20,8 +20,9 @@ public class User {
     @JoinColumn(name = "address_id")
     private Address address;
 
-    @OneToMany(mappedBy = "person",  cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    public Set<Phone> phones;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "user_id")
+    private Set<Phone> phones;
 
     public User() {
     }
@@ -60,9 +61,17 @@ public class User {
         return address;
     }
 
-    public Optional<Phone> getFirstPhone(){
+    public Optional<Phone> getFirstPhone() {
         Iterator<Phone> iterator = phones.iterator();
 
         return Optional.of(iterator.next());
+    }
+
+    public Set<Phone> getPhones() {
+        return phones;
+    }
+
+    public void setPhones(Set<Phone> phones) {
+        this.phones = phones;
     }
 }

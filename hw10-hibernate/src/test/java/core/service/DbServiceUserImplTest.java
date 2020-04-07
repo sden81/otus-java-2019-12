@@ -23,7 +23,7 @@ class DbServiceUserImplTest extends HibernateAbstractTest {
         dbServiceUser.saveUser(user);
 
         var loadedUser = dbServiceUser.getUser(user.getId());
-//        assertThat(loadedUser.get().getFirstPhone().get().getNumber()).isEqualTo(newPhoneNumber);
+        assertThat(loadedUser.get().getPhones()).isNotEmpty();
     }
 
     @Test
