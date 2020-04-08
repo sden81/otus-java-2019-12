@@ -16,6 +16,7 @@
         <module>hw07-departmentATM</module>
         <module>hw08-json-object-writer</module>
         <module>hw09-orm</module>
+        <module>hw11-cache</module>
     </modules>
 
     <name>otus-java-2019-12</name>
