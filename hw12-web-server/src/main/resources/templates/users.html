@@ -1,0 +1,68 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Пользователи</title>
+    <script>
+        function createUser(){
+            const userId = document.getElementById('createUserId');
+            const userName = document.getElementById('createUserName');
+            const userLogin = document.getElementById('createUserLogin');
+            const userPassword = document.getElementById('createUserPassword');
+
+            if (!userId.value || !userName.value || !userLogin.value || !userPassword.value){
+                alert("Заполнены не все поля");
+            }
+
+            let user = {
+                id: userId.value,
+                name: userName.value,
+                login: userLogin.value,
+                password: userPassword.value
+            };
+            fetch('api/user/',
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+              },
+              body: JSON.stringify(user)
+            })
+                .then(response => {response.ok ? alert('Пользователь добавлен') : alert('Что то пошло не так'); document.location.reload(true)})
+        }
+    </script>
+</head>
+
+<body>
+
+<h4>Пользователи</h4>
+<table style="width: 400px">
+    <thead>
+    <tr>
+        <td style="width: 50px">Id</td>
+        <td style="width: 150px">Имя</td>
+        <td style="width: 100px">Логин</td>
+        <td style="width: 100px">Пароль</td>
+    </tr>
+    </thead>
+    <tbody>
+    <#list allUsers as item>
+    <tr>
+        <td>${item.id}</td>
+        <td>${item.name}</td>
+        <td>${item.login}</td>
+        <td>${item.password}</td>
+    </tr>
+    </#list>
+    </tbody>
+</table>
+
+<hr>
+
+<h4>Создать пользователя</h4>
+<input type="text" id="createUserId" placeholder="Введите id пользователя">
+<input type="text" id="createUserName" placeholder="Введите имя пользователя">
+<input type="text" id="createUserLogin" placeholder="Введите логин пользователя">
+<input type="text" id="createUserPassword" placeholder="Введите пароль пользователя">
+<button onclick="createUser()">Создать</button>
+
+</body>
+</html>
