@@ -5,8 +5,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class Main {
     private AtomicBoolean isNullThreadRun = new AtomicBoolean(true);
     private AtomicBoolean isCountedUp = new AtomicBoolean(true);
-    private final long counterLimit = 10;
-    private volatile long sharedCounter = 0;
+    private volatile long sharedCounter = 1;
 
     public static void main(String[] args) throws InterruptedException {
         Main counter = new Main();
@@ -28,7 +27,7 @@ public class Main {
             }
             if (threadName.toString().equals("Thread-1") && !isNullThreadRun.get()) {
                 System.out.printf("%s say: %d %s", threadName, sharedCounter, System.lineSeparator());
-                if (sharedCounter == 0) {
+                if (sharedCounter == 1) {
                     isCountedUp.set(true);
                 }
                 if (sharedCounter > 9) {
