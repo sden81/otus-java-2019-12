@@ -19,6 +19,7 @@
         <module>hw10-hibernate</module>
         <module>hw11-cache</module>
         <module>hw12-web-server</module>
+        <module>hw13-IoC</module>
     </modules>
 
     <name>otus-java-2019-12</name>
