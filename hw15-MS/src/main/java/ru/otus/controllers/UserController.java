@@ -20,21 +20,8 @@ public class UserController {
 
     @GetMapping({"/", "/user/list"})
     public String userListView(Model model) {
-        var usersList = userService.getAllUsers();
-        usersList.ifPresent(persons -> model.addAttribute("usersList", persons));
+//        var usersList = userService.getAllUsers();
+//        usersList.ifPresent(persons -> model.addAttribute("usersList", persons));
         return "userList.html";
     }
-
-    @GetMapping("/user/create")
-    public String userCreateView(Model model) {
-        model.addAttribute("user", new User());
-        return "userCreate.html";
-    }
-
-    @PostMapping("/user/save")
-    public RedirectView userSave(@ModelAttribute User user) {
-        userService.saveUser(user);
-        return new RedirectView("/user/list", true);
-    }
-
 }

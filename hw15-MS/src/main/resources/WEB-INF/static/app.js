@@ -5,7 +5,8 @@ const connect = () => {
     stompClient = Stomp.over(new SockJS('end-point'));
     stompClient.connect({}, (frame) => {
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/topic/response', (greeting) => showGreeting(JSON.parse(greeting.body).messageStr));
+        stompClient.subscribe('/topic/getAllUsersResponse', (usersMessage) => allUsersHandler(JSON.parse(usersMessage.body).messageStr));
+        stompClient.subscribe('/topic/getLastAddedUserIdResponse', (lastAddedUserIdMessage) => lastAddedUserIdHandler(JSON.parse(lastAddedUserIdMessage.body).messageStr));
     });
 }
 
@@ -16,21 +17,20 @@ const disconnect = () => {
     console.log("Disconnected");
 }
 
-const showGreeting = (messageStr) => {
+const allUsersHandler = (messageStr) => {
     receivedUsersList = JSON.parse(messageStr);
     let allUsersTable = showAllUsers(receivedUsersList);
     $("#allUsersResult").html('').append(allUsersTable);
     console.log(receivedUsersList);
 }
 
-
 const showAllUsers = function (allUsers) {
-    if (!Array.isArray(allUsers.value) || !allUsers.value.length) {
+    if (!Array.isArray(allUsers) || !allUsers.length) {
         return "Empty result";
     }
 
     let content = '';
-    Array.prototype.forEach.call(allUsers.value, function (user) {
+    Array.prototype.forEach.call(allUsers, function (user) {
         content += '<tr>\n' +
             '<td>' + user.id + '</td>\n' +
             '<td>' + user.name + '</td>\n' +
@@ -60,7 +60,13 @@ const getAllUsers = () => {
     stompClient.send("/app/message.getAllUsers", {}, JSON.stringify({'messageStr': 111}));
 }
 
-function createUser() {
+const lastAddedUserIdHandler = (userId) => {
+    if (userId){
+        getAllUsers();
+    }
+}
+
+const createUser = () => {
     const userName = document.getElementById('createUserName');
     const userLogin = document.getElementById('createUserLogin');
     const userPassword = document.getElementById('createUserPassword');

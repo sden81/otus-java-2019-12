@@ -57,4 +57,18 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        User compareUser = (User) obj;
+        return name.equals(compareUser.name) &&
+                login.equals(compareUser.login) &&
+                password.equals(compareUser.password);
+    }
 }
