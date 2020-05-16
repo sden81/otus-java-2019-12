@@ -20,6 +20,8 @@
         <module>hw11-cache</module>
         <module>hw12-web-server</module>
         <module>hw13-IoC</module>
+        <module>hw14-JMM</module>
+        <module>hw15-MS</module>
     </modules>
 
     <name>otus-java-2019-12</name>
