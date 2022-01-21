@@ -27,7 +27,7 @@
         <assertj-core.version>3.13.2</assertj-core.version>
         <maven-assembly-plugin.version>3.1.1</maven-assembly-plugin.version>
         <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
-        <h2.version>1.4.197</h2.version>
+        <h2.version>2.1.210</h2.version>
         <hibernate-core.version>5.4.4.Final</hibernate-core.version>
         <logback-classic.version>1.2.3</logback-classic.version>
     </properties>
